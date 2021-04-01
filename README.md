@@ -1,8 +1,10 @@
 # ServerRestCpp
 Server REST written in c++ using Model View Controller pattern. 
 The library used are:
+
 -cpprestsdk (to perform REST request)
 https://github.com/Microsoft/cpprestsdk/wiki/Getting-Started-Tutorial
+
 -libmysqlcppconn-dev (to perform mysql call)
 https://dev.mysql.com/doc/connector-cpp/8.0/en/connector-cpp-installation-binary.html 
 or use this command to install 
