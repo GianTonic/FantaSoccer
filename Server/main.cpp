@@ -3,6 +3,7 @@
 #include <cpprest/http_listener.h>              // HTTP server
 #include <cpprest/json.h>
 #include "header/mapParams.h"
+#include "header/modelSql.h"
 
 
 using namespace std;
@@ -26,6 +27,7 @@ listener.support(methods::GET,&handleGet);
   }catch (exception const & e){
       wcout << e.what() << endl;
    }
+
 return 0;
 }
 
@@ -80,6 +82,7 @@ void handleGet(http_request request)
    mapParams map = splitParamsQuery(params_string);
    map.printParams();
    response(request, map.getMap());
+   modelSql *ms = new modelSql;
    return;
 }
 

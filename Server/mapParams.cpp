@@ -27,7 +27,7 @@ void mapParams::printParams(){
 map<string, string>::iterator iter;
 string strToReturn;
   for (iter=this->params.begin(); iter != this->params.end(); ++iter) {
-           strToReturn.append(iter->first); //Not a method call
+           strToReturn.append(iter->first);
            strToReturn.append(":");
            strToReturn.append(iter->second);
            strToReturn.append("\n");
