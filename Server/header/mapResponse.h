@@ -4,20 +4,19 @@
 
 using namespace std;
 
-class mapParams{
+class mapResponse{
 public:    
-    static mapParams *getInstance();
-    mapParams(string s);
-    virtual ~mapParams();
+    static mapResponse *getInstance();
+    virtual ~mapResponse();
     void insertParam(string key, string value);
-    void printParams();
+    void printResponse();
     string findParamByKey(string key);    
     map<string,string> getMap();
     void clearMap();
 
 private:
-    static mapParams *instance;
-    mapParams();
+    static mapResponse *instance;
+    mapResponse();
     map<string,string> params; 
     
 };

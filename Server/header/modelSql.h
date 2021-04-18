@@ -1,3 +1,5 @@
+#include "mapParams.h"
+#include "mapResponse.h"
 #include <iostream>
 #include <string>
 #include <mysql_connection.h>
@@ -5,6 +7,8 @@
 #include <cppconn/exception.h>
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
+
+
 
 using namespace std;
 using namespace sql;
@@ -21,7 +25,7 @@ public:
     Statement* getStatement();
     void setResultSet(ResultSet *res);
     ResultSet* getResultSet();
-    void select(string query);
+    mapResponse selectById(mapParams map);
 
 
 private:
@@ -32,6 +36,6 @@ private:
     string URI="tcp://localhost:3306";
     string user="root";
     string pass="";
-    string query="SELECT nome FROM test WHERE id='id1'";
+    //string queryToken0="SELECT nome FROM test WHERE id='id1'";
     
 };

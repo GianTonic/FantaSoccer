@@ -1,28 +1,26 @@
-#include "header/mapParams.h"
+#include "header/mapResponse.h"
 
-mapParams *mapParams::instance=NULL;
+mapResponse *mapResponse::instance=NULL;
 
-mapParams *mapParams::getInstance(){
-  if(instance == NULL) instance = new mapParams();
+mapResponse *mapResponse::getInstance(){
+  if(instance == NULL) instance = new mapResponse();
   return instance;
 }
 
 //private constructor for singleton
-mapParams::mapParams(){ 
+mapResponse::mapResponse(){ 
 }
 
-mapParams::mapParams(string s){ 
-}
 
-mapParams::~mapParams(){
+mapResponse::~mapResponse(){
   instance = NULL;
 }
 
-map<string,string> mapParams::getMap(){
+map<string,string> mapResponse::getMap(){
 return this->params;
 }
 
-void mapParams::insertParam(string key, string value){
+void mapResponse::insertParam(string key, string value){
     size_t index = 0;
     while (value.find("%3B")) {
      /* Locate the substring to replace. */
@@ -40,7 +38,7 @@ void mapParams::insertParam(string key, string value){
     return;
 }
 
-void mapParams::printParams(){
+void mapResponse::printResponse(){
 map<string, string>::iterator iter;
 string strToReturn;
   for (iter=this->params.begin(); iter != this->params.end(); ++iter) {
@@ -52,7 +50,7 @@ string strToReturn;
     cout<<strToReturn<<endl;
 }
 
-string mapParams::findParamByKey(string key){
+string mapResponse::findParamByKey(string key){
 map<string, string>::iterator iter;
   for (iter = this->params.begin(); iter != this->params.end(); ++iter){
     if (iter->first == key){
@@ -64,6 +62,6 @@ map<string, string>::iterator iter;
   return "";
 }
 
-void mapParams::clearMap(){
+void mapResponse::clearMap(){
   this->params.clear();
 }
