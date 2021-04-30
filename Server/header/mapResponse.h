@@ -17,8 +17,7 @@ public:
 private:
     static mapResponse *instance;
     mapResponse();
-    map<string,string> params; 
-    
+    map<string,string> params;
 };
 
 
