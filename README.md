@@ -11,4 +11,4 @@ or use this command to install
 >>sudo apt-get install libmysqlcppconn-dev
 
 To compile the code use the following command:
->>g++ -g -std=c++11 main.cpp mapParams.cpp modelSql.cpp  -o server -lboost_system -lcrypto -lssl -lcpprest -lmysqlcppconn
+>>g++ -g -std=c++11 main.cpp mapParams.cpp mapResponse.cpp  modelSql.cpp Controller.cpp View.cpp -o server -lboost_system -lcrypto -lssl -lcpprest -lmysqlcppconn
