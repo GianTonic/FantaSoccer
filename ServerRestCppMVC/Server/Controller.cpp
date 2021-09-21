@@ -38,13 +38,14 @@ string token_v;
      * La substr(size_t pos = 0, size_t n = npos)funzione restituisce una sottostringa dell'oggetto, a partire dalla posizione pos e dalla lunghezza npos
      * Se hai più delimitatori, dopo aver estratto un token, puoi rimuoverlo (delimitatore incluso) per procedere con le estrazioni successive 
      * (se vuoi conservare la stringa originale, usa semplicemente s = s.substr(pos + delimiter.length());)
+     * squad=croazese;12;42&day=1
      */
     if((pos=paramsQuery.find(delimiter_a))!= std::string::npos){   //id=id1;id2&i=id3
         token_k = paramsQuery.substr(0, pos); //token_k= id
         pos=pos + delimiter_a.length();
-        paramsQuery.erase(0, pos);                                  //paramsQuery = id1%3Bid2&i=id3
+        paramsQuery.erase(0, pos);                                  //paramsQuery = id1;id2&i=id3
         if(paramsQuery.find(delimiter_c)){
-            token_v = paramsQuery;                                  //token_v = id1%3Bid2&i=id3
+            token_v = paramsQuery;                                  //token_v = id1;id2&i=id3
             if((pos=paramsQuery.find(delimiter_b))!= std::string::npos){       
                 pos= pos + delimiter_b.length();
                 token_v.erase(pos-1);        

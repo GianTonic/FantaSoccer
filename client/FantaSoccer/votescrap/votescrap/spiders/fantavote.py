@@ -8,7 +8,7 @@ class FantavoteSpider(scrapy.Spider):
     custom_settings = {
             'LOG_ENABLED': 0,
         }
-    start_url = 'https://www.fantacalcio.it/voti-fantacalcio-serie-a/2020-2021/'
+    start_url = 'https://www.fantacalcio.it/voti-fantacalcio-serie-a/2021-22/'
     url = ''
     def __init__(self, day):
         self.url=self.start_url+day

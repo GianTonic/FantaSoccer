@@ -24,7 +24,6 @@ class Client(tk.Tk):
         self.menu.add_cascade(label="Menu", menu=filemenu)
         # filemenu.add_command(label="Add team's player", command=lambda: self.addPlayerWindow())
         filemenu.add_command(label="Refresh", command=self.refresh_ui) # giusto per aggiornare il cambio giornata ogni 10 min
-        filemenu.add_command(label="Show charts")
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.root.quit)
     

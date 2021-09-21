@@ -6,6 +6,6 @@
 
 using namespace std;
 extern int actual_day;
-
-void day_check();
 void update_day();
+void writePointsOnFile(string squadName,string numberDay,string points);
+bool is_file_exist(string fileName);

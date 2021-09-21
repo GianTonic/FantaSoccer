@@ -13,14 +13,14 @@ return this->params;
 
 void mapParams::insertParam(string key, string value){
     size_t index = 0;
-    while (value.find(";")) {   //%3B
+    while (value.find(";")) {   //; o %3B
      /* Locate the substring to replace. */
-     index = value.find(";", index); //%3B
+      index = value.find(";", index); //%3B
       if (index == std::string::npos) break;
      /* Make the replacement. */
-     value.replace(index, 1, "','");  //3
+      value.replace(index, 1, "','");  //3
      /* Advance index forward so the next iteration doesn't pick it up as well. */
-     index += 1;  //3
+      index += 1;  //3
     }
     pair<string,string> row = make_pair(key,value);
     this->params.insert(row);

@@ -12,8 +12,6 @@ void View::response(http_request request, map<string, string> map)
     for (auto const & p : map){
         answer[p.first] = json::value::string(p.second);
     }
-    // answer["key"] = json::value::string("Value");
     request.reply(status_codes::OK,answer); 
-    //map.clear();
     return;
 }

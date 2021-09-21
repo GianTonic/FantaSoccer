@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Lug 08, 2021 alle 15:16
+-- Creato il: Set 21, 2021 alle 20:00
 -- Versione del server: 10.4.11-MariaDB
--- Versione PHP: 7.4.5
+-- Versione PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -33,13 +34,6 @@ CREATE TABLE `day_point` (
   `points` float DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dump dei dati per la tabella `day_point`
---
-
-INSERT INTO `day_point` (`squad`, `day`, `points`) VALUES
-('Palestina', 1, 14.5);
-
 -- --------------------------------------------------------
 
 --
@@ -51,15 +45,6 @@ CREATE TABLE `day_vote` (
   `surname` varchar(255) NOT NULL,
   `vote` float DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dump dei dati per la tabella `day_vote`
---
-
-INSERT INTO `day_vote` (`number`, `surname`, `vote`) VALUES
-(1, 'Distefano', 7),
-(1, 'Privitera', 7),
-(1, 'Zagarella', 7.5);
 
 -- --------------------------------------------------------
 
@@ -78,9 +63,10 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`name`, `pass`, `type`) VALUES
-('admin', '21232f297a57a5a743894a0e4a801fc3', 0),
-('jenny', 'b59c67bf196a4758191e42f76670ceba', 1),
-('zibibbo', 'b59c67bf196a4758191e42f76670ceba', 1);
+('admin', '4a7d1ed414474e4033ac29ccb8653d9b', 0),
+('esame', 'b59c67bf196a4758191e42f76670ceba', 1),
+('giovanni', 'b59c67bf196a4758191e42f76670ceba', 1),
+('jenny', 'b59c67bf196a4758191e42f76670ceba', 1);
 
 -- --------------------------------------------------------
 
@@ -100,24 +86,45 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `squad`, `surname`, `role`) VALUES
-(73, 'croazese', 'Gollini', 'P'),
-(74, 'croazese', 'Da%20costa', 'P'),
-(75, 'croazese', 'Carboni', 'D'),
-(76, 'croazese', 'Golemic', 'D'),
-(77, 'croazese', 'Luperto', 'D'),
-(78, 'croazese', 'Magallan', 'D'),
-(79, 'croazese', 'Biraghi', 'D'),
-(80, 'croazese', 'Pezzella%20ger.', 'D'),
-(81, 'croazese', 'Behrami', 'C'),
-(82, 'croazese', 'Cataldi', 'C'),
-(83, 'croazese', 'Ruiz', 'C'),
-(84, 'croazese', 'Ekdal', 'C'),
-(85, 'croazese', 'Verre', 'C'),
-(86, 'croazese', 'Berardi', 'A'),
-(87, 'croazese', 'Caputo', 'A'),
-(88, 'croazese', 'Sanabria', 'A'),
-(89, 'croazese', 'Bonazzoli', 'A'),
-(90, 'croazese', 'Belotti', 'A');
+(116, 'croazese', 'Szczesny', 'P'),
+(117, 'croazese', 'Bonucci', 'D'),
+(118, 'croazese', 'Bastoni', 'D'),
+(119, 'croazese', 'De%20vrij', 'D'),
+(120, 'croazese', 'Dumfries', 'D'),
+(121, 'croazese', 'Calabria', 'D'),
+(122, 'croazese', 'Veretout', 'C'),
+(123, 'croazese', 'Luis%20alberto', 'C'),
+(124, 'croazese', 'Barella', 'C'),
+(125, 'croazese', 'Calhanoglu', 'C'),
+(126, 'croazese', 'Mkhitaryan', 'C'),
+(127, 'croazese', 'Pessina', 'C'),
+(128, 'croazese', 'Muriel', 'A'),
+(129, 'croazese', 'Gosens', 'D'),
+(130, 'croazese', 'Chiesa', 'C'),
+(131, 'croazese', 'Dybala', 'A'),
+(132, 'croazese', 'Morata', 'A'),
+(133, 'croazese', 'Martinez%20l.', 'A'),
+(134, 'croazese', 'Dzeko', 'A'),
+(135, 'Trieste', 'Maignan', 'P'),
+(136, 'Trieste', 'Meret', 'P'),
+(137, 'Trieste', 'Koulibaly', 'D'),
+(138, 'Trieste', 'Manolas', 'D'),
+(139, 'Trieste', 'Di%20lorenzo', 'D'),
+(140, 'Trieste', 'Mario%20rui', 'D'),
+(141, 'Trieste', 'Danilo', 'D'),
+(142, 'Trieste', 'Chiellini', 'D'),
+(143, 'Trieste', 'Tonali', 'C'),
+(144, 'Trieste', 'Saelemaekers', 'C'),
+(145, 'Trieste', 'Castrovilli', 'C'),
+(146, 'Trieste', 'Brozovic', 'C'),
+(147, 'Trieste', 'Kulusevski', 'C'),
+(148, 'Trieste', 'Thorsby', 'C'),
+(149, 'Trieste', 'Boga', 'A'),
+(150, 'Trieste', 'Berardi', 'A'),
+(151, 'Trieste', 'Deulofeu', 'A'),
+(152, 'Trieste', 'Abraham', 'A'),
+(153, 'Trieste', 'Shomurodov', 'A'),
+(154, 'Trieste', 'Osimhen', 'A');
 
 -- --------------------------------------------------------
 
@@ -137,9 +144,8 @@ CREATE TABLE `squad` (
 --
 
 INSERT INTO `squad` (`id`, `name`, `owner`, `setup`) VALUES
-(26, 'Triestina', 'Jenny', 0),
-(28, 'Palestina', 'Giovanni', 0),
-(33, 'croazese', 'zibibbo', 1);
+(26, 'croazese', 'Jenny', 0),
+(57, 'Trieste', 'giovanni', 0);
 
 -- --------------------------------------------------------
 
@@ -187,7 +193,8 @@ ALTER TABLE `login`
 -- Indici per le tabelle `player`
 --
 ALTER TABLE `player`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `squad` (`squad`,`surname`);
 
 --
 -- Indici per le tabelle `squad`
@@ -210,13 +217,13 @@ ALTER TABLE `test`
 -- AUTO_INCREMENT per la tabella `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT per la tabella `squad`
 --
 ALTER TABLE `squad`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT per la tabella `test`

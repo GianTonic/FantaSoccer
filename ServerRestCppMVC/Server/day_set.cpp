@@ -1,29 +1,51 @@
 #include "header/day_set.h"
 int actual_day = 0;
+bool append_csv_header = false;
 
-void day_check(){
-    fstream day_file;
-	day_file.open("day.txt", ios::in);
-	if (!day_file) {
+
+void update_day(){
+    if (!is_file_exist("day.txt")) {
         ofstream day_file("day.txt", ios::out); // crea file e setta giorno 1
         actual_day = 1;
         day_file << actual_day;
+        day_file.close();
+        std::this_thread::sleep_for(chrono::minutes(3));
+        update_day();        
     }
-    else {
-        int temp;
-        day_file >> temp;
-        if(temp<actual_day){ //che lo è sicuramente ogni 15min
-            ofstream day_file("day.txt", ios::trunc); //sostituisco il vecchio giorno con il nuovo
+    else{
+        ifstream day_file("day.txt", ios::in);
+        day_file>>actual_day;
+        while(actual_day < 39){
+            ofstream day_file("day.txt", ios::trunc);
+            actual_day += 1;
             day_file << actual_day;
-        }
-    }
-    day_file.close();
+            day_file.close();
+            std::this_thread::sleep_for(chrono::minutes(3)); //ogni 4 minuti aggiorno actual_day
+        } 
+    }    
 }
 
-void update_day(){
-        while(actual_day < 39){
-            actual_day += 1;
-            day_check();
-            std::this_thread::sleep_for(chrono::minutes(10)); //ogni 15 minuti aggiorno day
+void writePointsOnFile(string squadName,string numberDay,string points){
+	if (!is_file_exist("points.csv")) {
+        ofstream points_file("points.csv", ios::out); 
+        string header = "squad;day;point\n";
+        string row = header + squadName+";"+numberDay+";"+points+"\n";
+        points_file <<row;
+        points_file.close();
+    }
+    else{
+        if(is_file_exist("points.csv")){
+            ofstream points_file("points.csv", ios::app);
+            string row = squadName+";"+numberDay+";"+points+"\n";
+            points_file << row;
+            points_file.close();
         }
+
+    }
+
+}
+
+bool is_file_exist(string fileName){
+    std::ifstream infile(fileName);
+    return infile.good();
 }

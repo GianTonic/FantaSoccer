@@ -1,4 +1,8 @@
-# ServerRestCpp
+GitHub repository:
+https://github.com/GianTonic/FantaSoccer
+
+# FantaSoccer 1.0
+# Server Rest C++
 Server REST written in c++ using Model View Controller pattern. 
 The library used are:
 

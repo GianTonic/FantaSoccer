@@ -93,17 +93,6 @@ def insert_formation_day(player, day):
         print("errore, inserimento giocatore nella formazione")
         return False
 
-def load_team_players_of_day(squadname,day):
-    url= 'http://localhost:8030/GET?squad='+squadname+'&day='+day
-    pls = requests.get(url,verify=False)
-    if pls.text!='{}':
-        print(pls.text)
-        # print(pls.text[cli_name])
-        disdiz = {"players": pls.text}
-        stringed = json.dumps(disdiz)
-        data = json.loads(stringed)
-        return data
-
 def update_setup(squadname,day):
     url='http://localhost:8030/PUT?setup='+day+'&name='+squadname
     pls = requests.put(url,verify=False)
@@ -149,11 +138,12 @@ def file_op(dati):
 def save_teams_players(team,players):
     str = players.get(1.0,"end-1c")
     x = str.split('\n')
+    print(x)
     for i in x:
         # print(i)
         if i!="":
             j = i.split(" - ")
-            # print(j[0]+" role: "+j[1])
+            print(j[0])
             url = 'http://localhost:8030?player='+team+';'+j[0]+';'+j[1]
             pls = requests.post(url,verify=False)
             if pls.status_code == requests.codes.ok:
@@ -201,3 +191,15 @@ def update_votes(player,vote,day):
             # print(pls)
             print("voto assegnato al giocatore"+player)
             return True
+
+def update_points(squadname,day):
+    url= 'http://localhost:8030/GET?squad='+squadname+'&day='+day
+    pls = requests.get(url,verify=False)
+    if pls.text!='{}':
+        print(pls.text)
+        # print(pls.text[cli_name])
+        disdiz = {"players": pls.text}
+        stringed = json.dumps(disdiz)
+        data = json.loads(stringed)
+        return data            
+

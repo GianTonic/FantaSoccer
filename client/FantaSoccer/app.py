@@ -15,60 +15,30 @@ import req, json
 
 class App(tk.Tk):
 
+
     def __init__(self, root, day):
         self.actual_day = day
-        print("actual day"+ day)
+        print("actual day "+ day)
         self.root = root
         root.geometry("600x320")
         # top = tk.Toplevel(class_= login.Log)
         self.menu = tk.Menu(self.root)
         self.root.config(menu=self.menu)
         root.resizable(False, False)
-        # self.login_menu()
-        # photo = tk.PhotoImage(file='./ui/src/logo.gif')
-        # label = tk.Label(root, image=photo)
-        # label.pack()
-        # self.frame0 = tk.Frame(self)
+        
         self.user_menu()
-        # self.teams_showed = []
-        # print(self.teams_showed)
         self.frame = self.main_ui()
         self.frame.grid(column=1, row=0, columnspan=3, rowspan=10)
-        # print(self.teams_showed)
-        # data = req.load_file()
-        # if data!='':
-        #     for i in data['teams']:
-        #         lbl = tk.Label(self, text="Name: ")
-        #         lbl.grid(column=0, row=i)
-        #         lbl_team = tk.Label(self, text=i['name'])
-        #         lbl_team.grid(column=1,row=i)
-        #         btn = tk.Button(self, text="Add team's players", command=lambda: self.addPlayerWindow(i['name']))
-        #         btn.grid(column=2, row=0)
-        #         print(i)
-        #         print(i['name'])
-
-        # self.log_ui()
-        # self.user_menu()
-        # if l.Log(root)==True:
-        # 	print("si")
 
     def user_menu(self):
         filemenu = tk.Menu(self.menu)
         self.menu.add_cascade(label="Menu", menu=filemenu)
         filemenu.add_command(label="Add team", command=self.newTeamWindow)
-        # filemenu.add_command(label="Add team's player", command=lambda: self.addPlayerWindow())
         filemenu.add_command(label="Refresh day points", command=self.refresh_point_day)
-        filemenu.add_command(label="Show charts")
+        filemenu.add_command(label="Refresh UI",command = self.refresh_ui)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.root.quit)
 
-    # def fanta_menu(self):
-    #     fantamenu = tk.Menu(self.menu)
-    #     self.menu.add_cascade(label="Manage Teams", menu=filemenu)
-    #     fantamenu.add_command(label="Add team", command=lambda: self.newTeamWindow())
-    #     fantamenu.add_command(label="Add team's player", command=lambda: self.addPlayerWindow())
-    #     fantamenu.add_command(label="Show my team")
-    #     fantamenu.add_command(label="Show charts")
 
     def newTeamWindow(self):
         newteamwin = tk.Toplevel(self.root)
@@ -113,6 +83,15 @@ class App(tk.Tk):
         self.players = []
         self.lb1 = tk.Label(addplayerwin, text="select player")
         self.lb1.grid(column=0, row=1)
+        #QUESTO PRIMA C'ERA
+        #self.lb1.pack()
+
+        #MANUAL INSERT
+        #self.lb2 = tk.Label(addplayerwin, text="Insert player")
+        #self.lb2.grid(column=0, row=2)
+        #self.mplayer = tk.Entry(addplayerwin)
+        #self.mplayer.grid(column=1,row=2)
+
         # vado a settare le opzioni della select giocatori con la list players
         self.opt1 = tk.OptionMenu(addplayerwin, self.player, '', *self.players)
         self.player.trace("w", self.callplay)
@@ -120,23 +99,23 @@ class App(tk.Tk):
         self.opt1.grid(column=1, row=1)
 
         btn = tk.Button(addplayerwin, text="Add player", command=self.add_player)
-        btn.grid(column=0, row=2)
+        btn.grid(column=0, row=3)
         self.btn_remove = tk.Button(addplayerwin, text="Remove last insert", command=self.rem_last_player, state=DISABLED)
-        self.btn_remove.grid(column=1, row=2)
+        self.btn_remove.grid(column=1, row=4)
         tk.Label(addplayerwin, text='make sure you entered 20 right players before save', height=2).grid(column=1, row=3)
         self.lista = tk.Text(addplayerwin, state='disabled', height=20, width=30)
-        self.lista.grid(column=1, row=4)
+        self.lista.grid(column=1, row=5)
         # self.lista.pack(fill=BOTH, pady=5, padx=5, expand=True)
-        self.sav = tk.Button(addplayerwin, text="Save", state='disabled', command=lambda: self.save_players(team, self.lista))
-        self.sav.grid(column=1, row=5)
+        self.sav = tk.Button(addplayerwin, text="Save", state='disabled', command=lambda: self.save_players(addplayerwin,team,self.lista))
+        self.sav.grid(column=1, row=6)
         # qui faccio 
         self.tox = 0
 
-    def save_players(addplayerwin, team, players_list):
+    def save_players(self,addplayerwin, team, players_list):
         if(req.save_teams_players(team, players_list)):
             msg.showinfo(title='Operation complete', message='All players appended to team')
-            addplayerwin.main_ui()
-            addplayerwin.quit
+            addplayerwin.destroy()
+            self.refresh_ui()
         else:
             msg.showerror(title='Error ', message='Cannot add players to team')
 
@@ -165,6 +144,7 @@ class App(tk.Tk):
     
     # pulsante aggiungi giocatore
     def add_player(addplayerwin):
+        
         if addplayerwin.player.get()!='select player':
             if req.chosen(surname=addplayerwin.player.get()) == False:
                 # tox = addplayerwin.lista.get('1','end')
@@ -185,6 +165,24 @@ class App(tk.Tk):
                 return
             else:
                 msg.showerror(title='Impossibile inserire', message='il giocatore è stato già scelto')
+        elif addplayerwin.mplayer.get()!='':
+            if req.chosen(surname=addplayerwin.mplayer.get()) == False:
+                print("input: " + addplayerwin.mplayer.get())
+                addplayerwin.lista.config(state='normal')
+                addplayerwin.lista.insert(END, addplayerwin.mplayer.get()+'\n')
+                addplayerwin.lista.config(state='disabled')
+                # CONTATORE DI RIGHE
+                addplayerwin.tox = int(addplayerwin.lista.index('end-1c').split('.')[0]) - 1
+                print("totale inseriti " + str(addplayerwin.tox))
+                if addplayerwin.tox>=1:
+                    addplayerwin.btn_remove.config(state=NORMAL)
+                if addplayerwin.tox==5:
+                    addplayerwin.sav.config(state='normal')
+                else:
+                    addplayerwin.sav.config(state='disabled')
+                return
+            else:
+                    msg.showerror(title='Impossibile inserire', message='il giocatore è stato già scelto')  
         else:
             msg.showerror(title='Errore', message='seleziona un giocatore prima di continuare')
     
@@ -232,6 +230,23 @@ class App(tk.Tk):
                 player_list.insert(END, key+" role: "+value+"\n")
             player_list.config(state="disabled")
 
+    def show_team_points(self, team, day):
+        data = req.update_points(team,day)
+        if(data!=""):
+            print(data)
+            players= json.loads(data['players'])
+            
+            show_team_win = tk.Toplevel(self.root)
+            show_team_win.title(team)
+            show_team_win.geometry("300x600")
+            player_list = tk.Text(show_team_win, height=20, width=30)
+            player_list.grid(column=1, row=4)
+            for key, value in players.items():
+                print('mostra la lista giocatori di '+team)
+                player_list.insert(END, key+": "+value+"\n")
+            player_list.config(state="disabled")
+
+
     def main_ui(self):
         data = req.load_db()
         frame0 = tk.Frame(self.root)
@@ -265,8 +280,11 @@ class App(tk.Tk):
                 else:
                     btn = tk.Button(frame0, text="Show team", command=lambda x = x: self.show_team_players(str(x[0])))
                     btn.grid(column=4, row=j)
+                    self.actual_day = req.get_the_day()
+                    btn = tk.Button(frame0, text="Show points team day="+self.actual_day, command=lambda x = x: self.show_team_points(str(x[0]),self.actual_day))
+                    btn.grid(column=5, row=j)
                 lbl_own = tk.Label(frame0, text="owner: "+str(x[1]))
-                lbl_own.grid(column=5,row=j)
+                lbl_own.grid(column=6,row=j)
                 # tupla = [lbl,lbl_team,btn,lbl_own]
                 # self.teams_showed.append(tupla)
             return frame0

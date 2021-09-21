@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.rmd": "markdown",
         "string": "cpp",
         "*.tcc": "cpp",
         "hash_map": "cpp",
@@ -65,6 +66,7 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "*.dat": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "future": "cpp"
     }
 }
