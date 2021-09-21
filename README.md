@@ -2,6 +2,7 @@ GitHub repository:
 https://github.com/GianTonic/FantaSoccer
 
 # FantaSoccer 1.0
+
 # Server Rest C++
 Server REST written in c++ using Model View Controller pattern. 
 The library used are:
@@ -17,7 +18,7 @@ or use this command to install
 To compile the code use the following command:
 >>g++ -g -std=c++11 main.cpp mapParams.cpp  modelSql.cpp Controller.cpp View.cpp day_set.cpp -o server -lboost_system -lcrypto -lssl -lcpprest -lmysqlcppconn -lpthread
 
-#Client Py
+# Client Py
 Client with GUI written in python v.3
 
 dependencies gui tkinter python
@@ -32,7 +33,7 @@ dependencies scrapy e xpath
 To execute the code use the following command:
 python3 main.py
 
-#Client R
+# Client R
 To execute the code use the following command:
 >> Rscript plotter.R
 
