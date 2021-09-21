@@ -38,7 +38,7 @@ or use this command to install
 To compile the code use the following command:
 >>g++ -g -std=c++11 main.cpp mapParams.cpp  modelSql.cpp Controller.cpp View.cpp day_set.cpp -o server -lboost_system -lcrypto -lssl -lcpprest -lmysqlcppconn -lpthread
 
-# Scrip R
+# Script R
 R script to read from csv files and represent data on a .png file
 
 To execute the code use the following command:
