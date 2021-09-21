@@ -20,7 +20,7 @@ dependencies scrapy e xpath
 >>pip3 install xpath-py
 
 To execute the code use the following command:
-python3 main.py
+>>python3 main.py
 
 # Server C++
 Server REST written in C ++ using the Model View Controller pattern. The server exposes REST end-points to listen for any incoming request from the py client. The server manages the requests and executes sql queries on mysql relational db to process data. 
