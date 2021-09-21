@@ -4,9 +4,10 @@ https://github.com/GianTonic/FantaSoccer
 # FantaSoccer 1.0
 
 # Server Rest C++
-Server REST written in c++ using Model View Controller pattern. 
-The library used are:
+server REST written in C ++ using the Model View Controller pattern. The server exposes REST end-points to listen for any incoming request from the py client. The server manages the requests and executes sql queries on mysql relational db to process data from/to "fanta-Soccer" tournament. 
+The server updates a .csv file to keep track of the score of all the teams for each day of the tournament.
 
+The library used are:
 -cpprestsdk (to perform REST request)
 https://github.com/Microsoft/cpprestsdk/wiki/Getting-Started-Tutorial
 
@@ -19,7 +20,10 @@ To compile the code use the following command:
 >>g++ -g -std=c++11 main.cpp mapParams.cpp  modelSql.cpp Controller.cpp View.cpp day_set.cpp -o server -lboost_system -lcrypto -lssl -lcpprest -lmysqlcppconn -lpthread
 
 # Client Py
-Client with GUI written in python v.3
+Client with GUI written in python v.3.
+The client simulates access to the application via login. There are two type of user: 
+-Admin can create teams for each participant in the tournament, add players and update the votes/score via website scraping.
+-Users (team owners) can publish the team every matchday of Serie A.
 
 dependencies gui tkinter python
 >>pip3 install tk
@@ -33,7 +37,9 @@ dependencies scrapy e xpath
 To execute the code use the following command:
 python3 main.py
 
-# Client R
+# Scrip R
+R script to read from csv files and represent data on a .png file
+
 To execute the code use the following command:
 >> Rscript plotter.R
 
