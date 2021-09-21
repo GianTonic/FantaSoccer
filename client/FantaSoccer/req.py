@@ -57,23 +57,33 @@ def load_team_players(team_name):
         return data
 
 def insert_team(dati):
-    data = load_db()
-    teams= json.loads(data['teams'])
-    # print(teams)
-    canadd=1
-    if dati['name'] in teams.keys() | dati['owner'] in teams.values():
-        canadd = 0
-    if canadd==1:
-        # print('allora inserisco'+dati['name']+' di '+dati['owner'])
+    #request squad già presenti
+    data = load_db() 
+    if data!=None:
+        teams= json.loads(data['teams'])
+        # print(teams)
+        canadd=1
+        if dati['name'] in teams.keys() | dati['owner'] in teams.values():
+            canadd = 0
+        if canadd==1:
+            # print('allora inserisco'+dati['name']+' di '+dati['owner'])
+            url = "http://localhost:8030?squad="+dati['name']+";"+dati['owner']
+            # print(url)
+            pls = requests.post(url,verify=False)
+            if pls.status_code == requests.codes.ok:
+                print(pls)
+                return True
+        else:
+            print('errore')
+            return False
+    else:
         url = "http://localhost:8030?squad="+dati['name']+";"+dati['owner']
-        # print(url)
+            # print(url)
         pls = requests.post(url,verify=False)
         if pls.status_code == requests.codes.ok:
             print(pls)
             return True
-    else:
-        print('errore')
-        return False
+
 
 def get_the_day():
     url = 'http://localhost:8030/GET?actual_day'

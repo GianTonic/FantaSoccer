@@ -83,8 +83,7 @@ class App(tk.Tk):
         self.players = []
         self.lb1 = tk.Label(addplayerwin, text="select player")
         self.lb1.grid(column=0, row=1)
-        #QUESTO PRIMA C'ERA
-        #self.lb1.pack()
+
 
         #MANUAL INSERT
         #self.lb2 = tk.Label(addplayerwin, text="Insert player")
@@ -250,7 +249,9 @@ class App(tk.Tk):
     def main_ui(self):
         data = req.load_db()
         frame0 = tk.Frame(self.root)
-        if data!='{}':
+        print(data)
+        #if data!='{}':
+        if data!=None:
             # print(data['teams'])
             # print(data)
             teams = {}
@@ -288,7 +289,8 @@ class App(tk.Tk):
                 # tupla = [lbl,lbl_team,btn,lbl_own]
                 # self.teams_showed.append(tupla)
             return frame0
-            
+        else: 
+            return frame0    
                 # print(i)
     def refresh_ui(self):
         self.frame.destroy()
